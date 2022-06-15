@@ -35,7 +35,8 @@ class CartItem extends React.Component{
     }
     
     render(){
-        let {price, title, qty} = this.state
+        const {price, title, qty} = this.props.product
+        console.log(this.props)
 
         return (
             <div className="cart-item">
