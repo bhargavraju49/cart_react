@@ -51,7 +51,7 @@ class CartItem extends React.Component{
                         <img 
                             alt="increase" 
                             className="action-icons" 
-                            src="https://cdn-icons.flaticon.com/png/512/1008/premium/1008978.png?token=exp=1655227735~hmac=30b72cd8f29f7d436886b46f9d8e7f2d"
+                            src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
                             onClick={this.increaseQuantity.bind(this)}
                         />
 
@@ -61,7 +61,11 @@ class CartItem extends React.Component{
                             src="https://cdn-icons-png.flaticon.com/512/992/992683.png"
                             onClick={this.decreaseQuantity}
                         />
-                        <img alt="delete" className="action-icons" src="https://cdn-icons.flaticon.com/png/512/542/premium/542775.png?token=exp=1655227753~hmac=af17e53734fc2dc6f0418afdfab3e29f"/>
+                        <img 
+                            alt="delete" 
+                            className="action-icons" 
+                            src="https://cdn-icons.flaticon.com/png/512/484/premium/484662.png?token=exp=1655315414~hmac=10d53426569ef3ac150396d94d24d7e9"
+                        />
 
                     </div>
                 </div>
