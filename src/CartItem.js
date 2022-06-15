@@ -8,7 +8,7 @@ class CartItem extends React.Component{
             price: 999,
             title: 'Phone',
             qty: 1,
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJHhJTOh8fa87Js5EAWMMLr9ApcyvkjgHrPuexPDAijm1eC_2lr_xnYoNmnIfkN5lDHZk&usqp=CAU'
+            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJHhJTOh8fa87Js5EAWMMLr9ApcyvkjgHrPuexPDAijm1eC_2lr_xnYoNmnIfkN5lDHZk&usqp=CAU',
         }
         
     }
