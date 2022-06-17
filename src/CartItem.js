@@ -13,7 +13,7 @@ const CartItem =  (props)=>{
                 </div>
                 <div className="right-block">
                     <div>{title}</div>
-                    <div>rs {price}</div>
+                    <div>rs {price*qty}</div>
                     <div>qty: {qty}</div>
                     <div className="cart-item-actions">
                         {/* buttons */}

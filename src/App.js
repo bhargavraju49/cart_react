@@ -1,38 +1,40 @@
 import React from "react";
 import Cart from "./Cart";
 import Navbar from "./Navbar";
+import Sample from "./Sample";
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import firebaseApp from "./index";
 
 class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      products: [
-        {
-          price: 999,
-          price_: 999,
-          title: "Phone",
-          qty: 1,
-          img: "https://m.media-amazon.com/images/I/61AwGDDZd3L._SL1500_.jpg",
-          id: 1,
-        },
-        {
-          price: 549,
-          price_: 549,
-          title: "watch",
-          qty: 1,
-          img: "https://m.media-amazon.com/images/I/71GIYSZpW+L._SL1500_.jpg",
-          id: 2,
-        },
-        {
-          price: 9999,
-          price_: 9999,
-          title: "laptop",
-          qty: 1,
-          img: "https://m.media-amazon.com/images/I/71an9eiBxpL._SL1500_.jpg",
-          id: 3,
-        },
-      ],
+      products: [],
+      loading: true
     }
+  }
+  componentDidMount(){
+
+    const db = getFirestore(firebaseApp);
+    // Get a list of cities from your database
+    const getproducts = async (db) => {
+      const productCols = collection(db, 'Products');
+      const productSnap = await getDocs(productCols);
+      const productList = productSnap.docs.map((doc) => {
+        const data = doc.data();
+        data['id'] = doc.id
+        return data;
+      });
+      console.log(productList)
+      this.setState({
+        products:productList,
+        loading:false
+      })
+    }
+    getproducts(db);
+
   }
 
     handleIncrementQuantity = (product) => {
@@ -41,7 +43,6 @@ class App extends React.Component {
       console.log(products)
       const index = products.indexOf(product)
       products[index].qty += 1;
-      products[index].price = products[index].price_*products[index].qty
   
       this.setState({
           products: products
@@ -53,7 +54,7 @@ class App extends React.Component {
       const {products} = this.state
       console.log(products)
       const index = products.indexOf(product)
-      if (products[index].qty){products[index].qty -= 1;products[index].price = products[index].price_*products[index].qty}
+      if (products[index].qty){products[index].qty -= 1}
   
       this.setState({
           products: products
@@ -92,7 +93,7 @@ class App extends React.Component {
     return count
 }
   render(){
-    const {products} = this.state
+    const {products , loading} = this.state
     return (
       <div className="App">
         <Navbar count = {this.getCartCount()}></Navbar>
@@ -102,7 +103,9 @@ class App extends React.Component {
          onDecreaseQuantity = {this.handleDecrementQuantity}
          onDelete = {this.handleDelete}
          > </Cart>
+         {loading && <h1>loading...</h1>}
          <div style={{padding:30}}><h1>Total = {this.getTotal()}</h1></div>
+         
       </div>
     );
   }
