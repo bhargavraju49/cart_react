@@ -5,6 +5,7 @@ import Sample from "./Sample";
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, onSnapshot, DocumentReference, addDoc  } from 'firebase/firestore/lite';
+import { doc, updateDoc, increment, deleteDoc } from "firebase/firestore/lite";
 // import { onSnapshot } from 'firebase/firestore';
 
 import firebaseApp from "./index";
@@ -57,41 +58,62 @@ class App extends React.Component {
     getproducts(db);
   }
 
-    handleIncrementQuantity = (product) => {
+    handleIncrementQuantity = async (product) => {
       console.log(product)
       const {products} = this.state
       console.log(products)
       const index = products.indexOf(product)
-      products[index].qty += 1;
+      // products[index].qty += 1;
   
-      this.setState({
-          products: products
-      })
+      // this.setState({
+      //     products: products
+      // })
+
+      const producrRef = doc(this.db, "Products", products[index].id );
+
+      // Atomically increment the population of the city by 50.
+      await updateDoc(producrRef, {
+          qty: increment(1)
+      });
+
+
     };
   
-    handleDecrementQuantity = (product) => {
+    handleDecrementQuantity = async (product) => {
       console.log(product)
       const {products} = this.state
       console.log(products)
       const index = products.indexOf(product)
-      if (products[index].qty){products[index].qty -= 1}
+      // if (products[index].qty){products[index].qty -= 1}
   
-      this.setState({
-          products: products
-      })
+      // this.setState({
+      //     products: products
+      // })
+
+      const producrRef = doc(this.db, "Products", products[index].id );
+
+      // Atomically increment the population of the city by 50.
+      await updateDoc(producrRef, {
+          qty: increment(-1)
+      });
     };
   
-    handleDelete = (product) => {
+    handleDelete = async (product) => {
       console.log(product)
       const {products} = this.state
       console.log(products)
       const index = products.indexOf(product)
       
-      products.splice(index,1)
+      // products.splice(index,1)
   
-      this.setState({
-          products: products
-      })
+      // this.setState({
+      //     products: products
+      // })
+
+      const producrRef = doc(this.db, "Products", products[index].id );
+
+      // Atomically increment the population of the city by 50.
+      await deleteDoc(producrRef);
     };
   
     
@@ -127,7 +149,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar count = {this.getCartCount()}></Navbar>
-        <button onClick={this.addProduct}>add a product</button>
+        {/* <button onClick={this.addProduct}>add a product</button> */}
         <Cart
         products = {products}
          onIncreaseQuantity = {this.handleIncrementQuantity} 
